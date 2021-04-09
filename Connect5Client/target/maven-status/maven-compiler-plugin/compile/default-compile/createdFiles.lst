@@ -1,0 +1,6 @@
+handler\HttpHandler.class
+model\Player.class
+model\RequestVerb.class
+model\ResponseEntity.class
+Connect5ClientMain.class
+handler\InteractionHandler.class
