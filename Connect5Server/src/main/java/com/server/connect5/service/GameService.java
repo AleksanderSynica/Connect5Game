@@ -124,8 +124,7 @@ public class GameService {
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(gameBoard.printBoard()
                         + System.getProperty("line.separator") +
-                        "Column " + (column + 1) + " is full" + System.getProperty("line.separator") +
-                        "It's your turn " + playerName + ", please enter column  (1-9 or 0 to disconnect)");
+                        "Column " + (column + 1) + " is full" + System.getProperty("line.separator"));
             }
 
         } else {

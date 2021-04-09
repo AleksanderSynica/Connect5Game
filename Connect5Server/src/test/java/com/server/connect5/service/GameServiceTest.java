@@ -160,8 +160,7 @@ class GameServiceTest {
         gameBoard.currentBoard = new char[GameBoard.ROW_LENGTH][GameBoard.COL_LENGTH];
 
         String responseMessage = gameBoard.printBoard() + System.getProperty("line.separator") +
-                "Column " + (columnNumber + 1) + " is full" + System.getProperty("line.separator") +
-                "It's your turn " + testPlayerName + ", please enter column  (1-9 or 0 to disconnect)";
+                "Column " + (columnNumber + 1) + " is full" + System.getProperty("line.separator");
 
         ResponseEntity<String> testResponse = gameService.makeMove(testPlayerName, columnNumber);
 
