@@ -12,6 +12,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
+/**
+ * This class handles HTTP requests to the server
+ */
 public class HttpHandler {
 
     private static final String BASE_URL = "http://localhost:8080/";
@@ -21,6 +24,15 @@ public class HttpHandler {
     public static final String MOVE_STATUS_URL = BASE_URL + "move-status";
     public static final String DISCONNECT_URL = BASE_URL + "disconnect";
 
+    /**
+     * Handles sending http requests to the server using the passed in URL, HTTP Verb
+     * and query parameters
+     *
+     * @param verb
+     * @param urlString
+     * @param params
+     * @return Response object containing the HTTP status code and message from the server
+     */
     public ResponseEntity sendHttpRequest(final RequestVerb verb, final String urlString,
                                           final Map<String, String> params) {
 
@@ -59,6 +71,12 @@ public class HttpHandler {
 
     }
 
+    /**
+     * Takes in a map of parameters for the URL and converts it to a string
+     *
+     * @param params
+     * @return parameter string
+     */
     private String paramMapToBytes(Map<String, String> params) {
         StringBuilder paramString = new StringBuilder();
 

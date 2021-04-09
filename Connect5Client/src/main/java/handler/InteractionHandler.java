@@ -17,6 +17,9 @@ import static model.RequestVerb.GET;
 import static model.RequestVerb.POST;
 import static model.RequestVerb.PUT;
 
+/**
+ * This class handles interaction with the server
+ */
 public class InteractionHandler {
 
     private Player player;
@@ -25,6 +28,12 @@ public class InteractionHandler {
 
     private static HttpHandler httpHandler = new HttpHandler();
 
+    /**
+     * Make the initial request to the server to join a game
+     * Retry if name chosen is not unique or if a game is in progress
+     *
+     * @throws IOException
+     */
     public void joinGame() throws IOException {
         System.out.println("Hello, to join a game please provide some information");
 
@@ -47,6 +56,22 @@ public class InteractionHandler {
         System.out.println(response.getMessage());
     }
 
+    /**
+     * Loop method to send move requests to the server
+     *
+     * A request for status is sent every 2 seconds
+     *
+     * Initially to check if another player has joined the game
+     *
+     * Later to determine whose move it is
+     *
+     * Once the game has begun check whether the other player has disconnected
+     *
+     * If it is the players move ask for column input and send it to the server
+     * Then return to status calls every 2 seconds
+     *
+     * @throws IOException
+     */
     public void play() throws IOException {
 
         Map<String, String> params = new HashMap<>();
@@ -111,6 +136,9 @@ public class InteractionHandler {
         System.out.println("Goodbye!");
     }
 
+    /**
+     * Send a request to the server to remove the player from the game
+     */
     private void disconnectFromGame() {
 
         Map<String, String> params = new HashMap<>();
