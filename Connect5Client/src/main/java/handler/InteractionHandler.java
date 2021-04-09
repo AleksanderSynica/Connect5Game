@@ -5,11 +5,9 @@ import model.ResponseEntity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import static handler.HttpHandler.DISCONNECT_URL;
 import static handler.HttpHandler.JOIN_URL;

@@ -374,4 +374,103 @@ class GameServiceTest {
         verify(gameState, times(1)).removePlayer(testPlayerName);
         verify(gameBoard, times(2)).printBoard();
     }
+
+    @Test
+    @DisplayName("Testing that if there are 5 vertical discs in a row the player wins")
+    void makeMoveValidIsWinnerVertical() {
+
+        params.put(testPlayer.getPlayerName(), testPlayer);
+
+        when(gameState.getLastToMove()).thenReturn("otherPlayer");
+        when(gameState.getPlayers()).thenReturn(params);
+
+        for (char[] c: gameBoard.currentBoard) {
+            c[0] = testPlayer.getDiscColor().charAt(0);
+        }
+
+        String responseMessage = gameBoard.printBoard() + System.getProperty("line.separator") +
+                "Game is over. You have won the game";
+
+        ResponseEntity<String> testResponse = gameService.makeMove(testPlayerName, columnNumber);
+
+        assertAll("Response entity has the correct response code and message",
+                () -> assertThat("Response code is 200 OK", testResponse.getStatusCode(),
+                        is(HttpStatus.OK)),
+                () -> assertThat("Response message is as expected", testResponse.getBody(),
+                        is(responseMessage)));
+
+        verify(gameState, times(1)).getLastToMove();
+        verify(gameState, times(2)).getPlayers();
+        verify(gameState, times(1)).setWinner(testPlayerName);
+        verify(gameState, times(1)).removePlayer(testPlayerName);
+        verify(gameBoard, times(2)).printBoard();
+    }
+
+    @Test
+    @DisplayName("Testing that if there are 5 diagonal discs in a row the player wins")
+    void makeMoveValidIsWinnerDiagonalRight() {
+
+        params.put(testPlayer.getPlayerName(), testPlayer);
+
+        when(gameState.getLastToMove()).thenReturn("otherPlayer");
+        when(gameState.getPlayers()).thenReturn(params);
+
+        int count = 0;
+
+        for (char[] c: gameBoard.currentBoard) {
+            c[count] = testPlayer.getDiscColor().charAt(0);
+            count++;
+        }
+
+        String responseMessage = gameBoard.printBoard() + System.getProperty("line.separator") +
+                "Game is over. You have won the game";
+
+        ResponseEntity<String> testResponse = gameService.makeMove(testPlayerName, columnNumber);
+
+        assertAll("Response entity has the correct response code and message",
+                () -> assertThat("Response code is 200 OK", testResponse.getStatusCode(),
+                        is(HttpStatus.OK)),
+                () -> assertThat("Response message is as expected", testResponse.getBody(),
+                        is(responseMessage)));
+
+        verify(gameState, times(1)).getLastToMove();
+        verify(gameState, times(2)).getPlayers();
+        verify(gameState, times(1)).setWinner(testPlayerName);
+        verify(gameState, times(1)).removePlayer(testPlayerName);
+        verify(gameBoard, times(2)).printBoard();
+    }
+
+    @Test
+    @DisplayName("Testing that if there are 5 diagonal discs the player wins")
+    void makeMoveValidIsWinnerDiagonalLeft() {
+
+        params.put(testPlayer.getPlayerName(), testPlayer);
+
+        when(gameState.getLastToMove()).thenReturn("otherPlayer");
+        when(gameState.getPlayers()).thenReturn(params);
+
+        int count = GameBoard.COL_LENGTH - 1;
+
+        for (char[] c: gameBoard.currentBoard) {
+            c[count] = testPlayer.getDiscColor().charAt(0);
+            count--;
+        }
+
+        String responseMessage = gameBoard.printBoard() + System.getProperty("line.separator") +
+                "Game is over. You have won the game";
+
+        ResponseEntity<String> testResponse = gameService.makeMove(testPlayerName, columnNumber);
+
+        assertAll("Response entity has the correct response code and message",
+                () -> assertThat("Response code is 200 OK", testResponse.getStatusCode(),
+                        is(HttpStatus.OK)),
+                () -> assertThat("Response message is as expected", testResponse.getBody(),
+                        is(responseMessage)));
+
+        verify(gameState, times(1)).getLastToMove();
+        verify(gameState, times(2)).getPlayers();
+        verify(gameState, times(1)).setWinner(testPlayerName);
+        verify(gameState, times(1)).removePlayer(testPlayerName);
+        verify(gameBoard, times(2)).printBoard();
+    }
 }
